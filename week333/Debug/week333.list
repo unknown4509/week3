@@ -37,13 +37,13 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
  16 .debug_macro  00014fcf  00000000  00000000  00028a10  2**0
                   CONTENTS, READONLY, DEBUGGING
- 17 .debug_line   00005cab  00000000  00000000  0003d9df  2**0
+ 17 .debug_line   00005cb1  00000000  00000000  0003d9df  2**0
                   CONTENTS, READONLY, DEBUGGING
- 18 .debug_str    00085a00  00000000  00000000  0004368a  2**0
+ 18 .debug_str    00085a00  00000000  00000000  00043690  2**0
                   CONTENTS, READONLY, DEBUGGING
- 19 .comment      0000007b  00000000  00000000  000c908a  2**0
+ 19 .comment      0000007b  00000000  00000000  000c9090  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  00001c88  00000000  00000000  000c9108  2**2
+ 20 .debug_frame  00001c88  00000000  00000000  000c910c  2**2
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -1079,15 +1079,14 @@ int main(void)
  8000d3c:	681b      	ldr	r3, [r3, #0]
  8000d3e:	1ad3      	subs	r3, r2, r3
  8000d40:	2b63      	cmp	r3, #99	; 0x63
- 8000d42:	d924      	bls.n	8000d8e <main+0x76>
+ 8000d42:	d928      	bls.n	8000d96 <main+0x7e>
 		{
-				ButtonTimeStamp = HAL_GetTick();
+		ButtonTimeStamp = HAL_GetTick();
  8000d44:	f000 fbf2 	bl	800152c <HAL_GetTick>
  8000d48:	4602      	mov	r2, r0
  8000d4a:	4b4b      	ldr	r3, [pc, #300]	; (8000e78 <main+0x160>)
  8000d4c:	601a      	str	r2, [r3, #0]
-
-				SwitchState[0] = HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_9);
+		SwitchState[0] = HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_9);
  8000d4e:	f44f 7100 	mov.w	r1, #512	; 0x200
  8000d52:	484a      	ldr	r0, [pc, #296]	; (8000e7c <main+0x164>)
  8000d54:	f001 fa3a 	bl	80021cc <HAL_GPIO_ReadPin>
@@ -1100,11 +1099,11 @@ int main(void)
  8000d60:	4b47      	ldr	r3, [pc, #284]	; (8000e80 <main+0x168>)
  8000d62:	785b      	ldrb	r3, [r3, #1]
  8000d64:	2b01      	cmp	r3, #1
- 8000d66:	d10e      	bne.n	8000d86 <main+0x6e>
+ 8000d66:	d112      	bne.n	8000d8e <main+0x76>
  8000d68:	4b45      	ldr	r3, [pc, #276]	; (8000e80 <main+0x168>)
  8000d6a:	781b      	ldrb	r3, [r3, #0]
  8000d6c:	2b00      	cmp	r3, #0
- 8000d6e:	d10a      	bne.n	8000d86 <main+0x6e>
+ 8000d6e:	d10e      	bne.n	8000d8e <main+0x76>
 				{
 					if (ADCMode == 0) {ADCMode = 1;}
  8000d70:	4b44      	ldr	r3, [pc, #272]	; (8000e84 <main+0x16c>)
@@ -1114,118 +1113,119 @@ int main(void)
  8000d78:	4b42      	ldr	r3, [pc, #264]	; (8000e84 <main+0x16c>)
  8000d7a:	2201      	movs	r2, #1
  8000d7c:	601a      	str	r2, [r3, #0]
- 8000d7e:	e002      	b.n	8000d86 <main+0x6e>
-					else {ADCMode = 0;}
+ 8000d7e:	e006      	b.n	8000d8e <main+0x76>
+					else if (ADCMode == 1) {ADCMode = 0;}
  8000d80:	4b40      	ldr	r3, [pc, #256]	; (8000e84 <main+0x16c>)
- 8000d82:	2200      	movs	r2, #0
- 8000d84:	601a      	str	r2, [r3, #0]
+ 8000d82:	681b      	ldr	r3, [r3, #0]
+ 8000d84:	2b01      	cmp	r3, #1
+ 8000d86:	d102      	bne.n	8000d8e <main+0x76>
+ 8000d88:	4b3e      	ldr	r3, [pc, #248]	; (8000e84 <main+0x16c>)
+ 8000d8a:	2200      	movs	r2, #0
+ 8000d8c:	601a      	str	r2, [r3, #0]
 				}
-				SwitchState[1] = SwitchState[0];
- 8000d86:	4b3e      	ldr	r3, [pc, #248]	; (8000e80 <main+0x168>)
- 8000d88:	781a      	ldrb	r2, [r3, #0]
- 8000d8a:	4b3d      	ldr	r3, [pc, #244]	; (8000e80 <main+0x168>)
- 8000d8c:	705a      	strb	r2, [r3, #1]
+
+		SwitchState[1] = SwitchState[0];
+ 8000d8e:	4b3c      	ldr	r3, [pc, #240]	; (8000e80 <main+0x168>)
+ 8000d90:	781a      	ldrb	r2, [r3, #0]
+ 8000d92:	4b3b      	ldr	r3, [pc, #236]	; (8000e80 <main+0x168>)
+ 8000d94:	705a      	strb	r2, [r3, #1]
 		}
+
 
 
 		if (ADCMode == 0)
- 8000d8e:	4b3d      	ldr	r3, [pc, #244]	; (8000e84 <main+0x16c>)
- 8000d90:	681b      	ldr	r3, [r3, #0]
- 8000d92:	2b00      	cmp	r3, #0
- 8000d94:	d125      	bne.n	8000de2 <main+0xca>
+ 8000d96:	4b3b      	ldr	r3, [pc, #236]	; (8000e84 <main+0x16c>)
+ 8000d98:	681b      	ldr	r3, [r3, #0]
+ 8000d9a:	2b00      	cmp	r3, #0
+ 8000d9c:	d11c      	bne.n	8000dd8 <main+0xc0>
 		{
-			ADCSOutputConverted = ((((3.3 * ADCChannel[0].data) / 4096) * 1000));
- 8000d96:	4b3c      	ldr	r3, [pc, #240]	; (8000e88 <main+0x170>)
- 8000d98:	691b      	ldr	r3, [r3, #16]
- 8000d9a:	4618      	mov	r0, r3
- 8000d9c:	f7ff fb5e 	bl	800045c <__aeabi_ui2d>
- 8000da0:	a32f      	add	r3, pc, #188	; (adr r3, 8000e60 <main+0x148>)
- 8000da2:	e9d3 2300 	ldrd	r2, r3, [r3]
- 8000da6:	f7ff fbd3 	bl	8000550 <__aeabi_dmul>
- 8000daa:	4603      	mov	r3, r0
- 8000dac:	460c      	mov	r4, r1
- 8000dae:	4618      	mov	r0, r3
- 8000db0:	4621      	mov	r1, r4
- 8000db2:	f04f 0200 	mov.w	r2, #0
- 8000db6:	4b35      	ldr	r3, [pc, #212]	; (8000e8c <main+0x174>)
- 8000db8:	f7ff fcf4 	bl	80007a4 <__aeabi_ddiv>
- 8000dbc:	4603      	mov	r3, r0
- 8000dbe:	460c      	mov	r4, r1
- 8000dc0:	4618      	mov	r0, r3
- 8000dc2:	4621      	mov	r1, r4
- 8000dc4:	f04f 0200 	mov.w	r2, #0
- 8000dc8:	4b31      	ldr	r3, [pc, #196]	; (8000e90 <main+0x178>)
- 8000dca:	f7ff fbc1 	bl	8000550 <__aeabi_dmul>
- 8000dce:	4603      	mov	r3, r0
- 8000dd0:	460c      	mov	r4, r1
- 8000dd2:	4618      	mov	r0, r3
- 8000dd4:	4621      	mov	r1, r4
- 8000dd6:	f7ff fdcd 	bl	8000974 <__aeabi_d2f>
- 8000dda:	4602      	mov	r2, r0
- 8000ddc:	4b2d      	ldr	r3, [pc, #180]	; (8000e94 <main+0x17c>)
- 8000dde:	601a      	str	r2, [r3, #0]
- 8000de0:	e03a      	b.n	8000e58 <main+0x140>
+			ADCSOutputConverted = ( ((3.3 / 4096)* ADCChannel[0].data) * 1000);
+ 8000d9e:	4b3a      	ldr	r3, [pc, #232]	; (8000e88 <main+0x170>)
+ 8000da0:	691b      	ldr	r3, [r3, #16]
+ 8000da2:	4618      	mov	r0, r3
+ 8000da4:	f7ff fb5a 	bl	800045c <__aeabi_ui2d>
+ 8000da8:	a32b      	add	r3, pc, #172	; (adr r3, 8000e58 <main+0x140>)
+ 8000daa:	e9d3 2300 	ldrd	r2, r3, [r3]
+ 8000dae:	f7ff fbcf 	bl	8000550 <__aeabi_dmul>
+ 8000db2:	4603      	mov	r3, r0
+ 8000db4:	460c      	mov	r4, r1
+ 8000db6:	4618      	mov	r0, r3
+ 8000db8:	4621      	mov	r1, r4
+ 8000dba:	f04f 0200 	mov.w	r2, #0
+ 8000dbe:	4b33      	ldr	r3, [pc, #204]	; (8000e8c <main+0x174>)
+ 8000dc0:	f7ff fbc6 	bl	8000550 <__aeabi_dmul>
+ 8000dc4:	4603      	mov	r3, r0
+ 8000dc6:	460c      	mov	r4, r1
+ 8000dc8:	4618      	mov	r0, r3
+ 8000dca:	4621      	mov	r1, r4
+ 8000dcc:	f7ff fdd2 	bl	8000974 <__aeabi_d2f>
+ 8000dd0:	4602      	mov	r2, r0
+ 8000dd2:	4b2f      	ldr	r3, [pc, #188]	; (8000e90 <main+0x178>)
+ 8000dd4:	601a      	str	r2, [r3, #0]
+ 8000dd6:	e03a      	b.n	8000e4e <main+0x136>
 		}
 		else if (ADCMode == 1)
- 8000de2:	4b28      	ldr	r3, [pc, #160]	; (8000e84 <main+0x16c>)
- 8000de4:	681b      	ldr	r3, [r3, #0]
- 8000de6:	2b01      	cmp	r3, #1
- 8000de8:	d136      	bne.n	8000e58 <main+0x140>
+ 8000dd8:	4b2a      	ldr	r3, [pc, #168]	; (8000e84 <main+0x16c>)
+ 8000dda:	681b      	ldr	r3, [r3, #0]
+ 8000ddc:	2b01      	cmp	r3, #1
+ 8000dde:	d136      	bne.n	8000e4e <main+0x136>
 		{
 			ADCSOutputConverted = (((ADCChannel[2].data * 3.3) / 4096) - 0.76)/ 0.0025 + 25;
- 8000dea:	4b27      	ldr	r3, [pc, #156]	; (8000e88 <main+0x170>)
- 8000dec:	6b9b      	ldr	r3, [r3, #56]	; 0x38
- 8000dee:	4618      	mov	r0, r3
- 8000df0:	f7ff fb34 	bl	800045c <__aeabi_ui2d>
- 8000df4:	a31a      	add	r3, pc, #104	; (adr r3, 8000e60 <main+0x148>)
- 8000df6:	e9d3 2300 	ldrd	r2, r3, [r3]
- 8000dfa:	f7ff fba9 	bl	8000550 <__aeabi_dmul>
- 8000dfe:	4603      	mov	r3, r0
- 8000e00:	460c      	mov	r4, r1
- 8000e02:	4618      	mov	r0, r3
- 8000e04:	4621      	mov	r1, r4
- 8000e06:	f04f 0200 	mov.w	r2, #0
- 8000e0a:	4b20      	ldr	r3, [pc, #128]	; (8000e8c <main+0x174>)
- 8000e0c:	f7ff fcca 	bl	80007a4 <__aeabi_ddiv>
- 8000e10:	4603      	mov	r3, r0
- 8000e12:	460c      	mov	r4, r1
- 8000e14:	4618      	mov	r0, r3
- 8000e16:	4621      	mov	r1, r4
- 8000e18:	a313      	add	r3, pc, #76	; (adr r3, 8000e68 <main+0x150>)
- 8000e1a:	e9d3 2300 	ldrd	r2, r3, [r3]
- 8000e1e:	f7ff f9df 	bl	80001e0 <__aeabi_dsub>
- 8000e22:	4603      	mov	r3, r0
- 8000e24:	460c      	mov	r4, r1
- 8000e26:	4618      	mov	r0, r3
- 8000e28:	4621      	mov	r1, r4
- 8000e2a:	a311      	add	r3, pc, #68	; (adr r3, 8000e70 <main+0x158>)
- 8000e2c:	e9d3 2300 	ldrd	r2, r3, [r3]
- 8000e30:	f7ff fcb8 	bl	80007a4 <__aeabi_ddiv>
- 8000e34:	4603      	mov	r3, r0
- 8000e36:	460c      	mov	r4, r1
- 8000e38:	4618      	mov	r0, r3
- 8000e3a:	4621      	mov	r1, r4
- 8000e3c:	f04f 0200 	mov.w	r2, #0
- 8000e40:	4b15      	ldr	r3, [pc, #84]	; (8000e98 <main+0x180>)
- 8000e42:	f7ff f9cf 	bl	80001e4 <__adddf3>
- 8000e46:	4603      	mov	r3, r0
- 8000e48:	460c      	mov	r4, r1
- 8000e4a:	4618      	mov	r0, r3
- 8000e4c:	4621      	mov	r1, r4
- 8000e4e:	f7ff fd91 	bl	8000974 <__aeabi_d2f>
- 8000e52:	4602      	mov	r2, r0
- 8000e54:	4b0f      	ldr	r3, [pc, #60]	; (8000e94 <main+0x17c>)
- 8000e56:	601a      	str	r2, [r3, #0]
+ 8000de0:	4b29      	ldr	r3, [pc, #164]	; (8000e88 <main+0x170>)
+ 8000de2:	6b9b      	ldr	r3, [r3, #56]	; 0x38
+ 8000de4:	4618      	mov	r0, r3
+ 8000de6:	f7ff fb39 	bl	800045c <__aeabi_ui2d>
+ 8000dea:	a31d      	add	r3, pc, #116	; (adr r3, 8000e60 <main+0x148>)
+ 8000dec:	e9d3 2300 	ldrd	r2, r3, [r3]
+ 8000df0:	f7ff fbae 	bl	8000550 <__aeabi_dmul>
+ 8000df4:	4603      	mov	r3, r0
+ 8000df6:	460c      	mov	r4, r1
+ 8000df8:	4618      	mov	r0, r3
+ 8000dfa:	4621      	mov	r1, r4
+ 8000dfc:	f04f 0200 	mov.w	r2, #0
+ 8000e00:	4b24      	ldr	r3, [pc, #144]	; (8000e94 <main+0x17c>)
+ 8000e02:	f7ff fccf 	bl	80007a4 <__aeabi_ddiv>
+ 8000e06:	4603      	mov	r3, r0
+ 8000e08:	460c      	mov	r4, r1
+ 8000e0a:	4618      	mov	r0, r3
+ 8000e0c:	4621      	mov	r1, r4
+ 8000e0e:	a316      	add	r3, pc, #88	; (adr r3, 8000e68 <main+0x150>)
+ 8000e10:	e9d3 2300 	ldrd	r2, r3, [r3]
+ 8000e14:	f7ff f9e4 	bl	80001e0 <__aeabi_dsub>
+ 8000e18:	4603      	mov	r3, r0
+ 8000e1a:	460c      	mov	r4, r1
+ 8000e1c:	4618      	mov	r0, r3
+ 8000e1e:	4621      	mov	r1, r4
+ 8000e20:	a313      	add	r3, pc, #76	; (adr r3, 8000e70 <main+0x158>)
+ 8000e22:	e9d3 2300 	ldrd	r2, r3, [r3]
+ 8000e26:	f7ff fcbd 	bl	80007a4 <__aeabi_ddiv>
+ 8000e2a:	4603      	mov	r3, r0
+ 8000e2c:	460c      	mov	r4, r1
+ 8000e2e:	4618      	mov	r0, r3
+ 8000e30:	4621      	mov	r1, r4
+ 8000e32:	f04f 0200 	mov.w	r2, #0
+ 8000e36:	4b18      	ldr	r3, [pc, #96]	; (8000e98 <main+0x180>)
+ 8000e38:	f7ff f9d4 	bl	80001e4 <__adddf3>
+ 8000e3c:	4603      	mov	r3, r0
+ 8000e3e:	460c      	mov	r4, r1
+ 8000e40:	4618      	mov	r0, r3
+ 8000e42:	4621      	mov	r1, r4
+ 8000e44:	f7ff fd96 	bl	8000974 <__aeabi_d2f>
+ 8000e48:	4602      	mov	r2, r0
+ 8000e4a:	4b11      	ldr	r3, [pc, #68]	; (8000e90 <main+0x178>)
+ 8000e4c:	601a      	str	r2, [r3, #0]
 
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
 
 		ADCPollingMethodUpdate();
- 8000e58:	f000 f9a8 	bl	80011ac <ADCPollingMethodUpdate>
+ 8000e4e:	f000 f9ad 	bl	80011ac <ADCPollingMethodUpdate>
 		if (HAL_GetTick() - ButtonTimeStamp >= 100) //ms
- 8000e5c:	e76a      	b.n	8000d34 <main+0x1c>
- 8000e5e:	bf00      	nop
+ 8000e52:	e76f      	b.n	8000d34 <main+0x1c>
+ 8000e54:	f3af 8000 	nop.w
+ 8000e58:	66666666 	.word	0x66666666
+ 8000e5c:	3f4a6666 	.word	0x3f4a6666
  8000e60:	66666666 	.word	0x66666666
  8000e64:	400a6666 	.word	0x400a6666
  8000e68:	851eb852 	.word	0x851eb852
@@ -1233,13 +1233,13 @@ int main(void)
  8000e70:	47ae147b 	.word	0x47ae147b
  8000e74:	3f647ae1 	.word	0x3f647ae1
  8000e78:	2000006c 	.word	0x2000006c
- 8000e7c:	40020800 	.word	0x40020800
- 8000e80:	200000b8 	.word	0x200000b8
+ 8000e7c:	40020000 	.word	0x40020000
+ 8000e80:	20000070 	.word	0x20000070
  8000e84:	20000068 	.word	0x20000068
  8000e88:	20000028 	.word	0x20000028
- 8000e8c:	40b00000 	.word	0x40b00000
- 8000e90:	408f4000 	.word	0x408f4000
- 8000e94:	20000064 	.word	0x20000064
+ 8000e8c:	408f4000 	.word	0x408f4000
+ 8000e90:	20000064 	.word	0x20000064
+ 8000e94:	40b00000 	.word	0x40b00000
  8000e98:	40390000 	.word	0x40390000
 
 08000e9c <SystemClock_Config>:
@@ -1493,7 +1493,7 @@ static void MX_ADC1_Init(void)
  8001002:	3710      	adds	r7, #16
  8001004:	46bd      	mov	sp, r7
  8001006:	bd80      	pop	{r7, pc}
- 8001008:	20000070 	.word	0x20000070
+ 8001008:	20000074 	.word	0x20000074
  800100c:	40012000 	.word	0x40012000
  8001010:	0f000001 	.word	0x0f000001
 
@@ -1679,9 +1679,9 @@ static void MX_GPIO_Init(void)
  8001128:	480a      	ldr	r0, [pc, #40]	; (8001154 <MX_GPIO_Init+0xec>)
  800112a:	f000 fecd 	bl	8001ec8 <HAL_GPIO_Init>
 
-  /*Configure GPIO pin : PA10 */
-  GPIO_InitStruct.Pin = GPIO_PIN_10;
- 800112e:	f44f 6380 	mov.w	r3, #1024	; 0x400
+  /*Configure GPIO pins : PA9 PA10 */
+  GPIO_InitStruct.Pin = GPIO_PIN_9|GPIO_PIN_10;
+ 800112e:	f44f 63c0 	mov.w	r3, #1536	; 0x600
  8001132:	617b      	str	r3, [r7, #20]
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
  8001134:	2300      	movs	r3, #0
@@ -1826,7 +1826,7 @@ void ADCPollingMethodUpdate() {
  8001210:	46bd      	mov	sp, r7
  8001212:	bd80      	pop	{r7, pc}
  8001214:	20000028 	.word	0x20000028
- 8001218:	20000070 	.word	0x20000070
+ 8001218:	20000074 	.word	0x20000074
 
 0800121c <Error_Handler>:
 /**

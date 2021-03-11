@@ -29,7 +29,6 @@ Common symbol       size              file
 uwTick              0x4               Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
 pFlash              0x20              Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.o
 hadc1               0x48              Core/Src/main.o
-SwitchState         0x2               Core/Src/main.o
 huart2              0x40              Core/Src/main.o
 
 Discarded input sections
@@ -3162,10 +3161,13 @@ LOAD c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.exte
  .bss.ButtonTimeStamp
                 0x000000002000006c        0x4 Core/Src/main.o
                 0x000000002000006c                ButtonTimeStamp
+ .bss.SwitchState
+                0x0000000020000070        0x2 Core/Src/main.o
+                0x0000000020000070                SwitchState
  *(COMMON)
- COMMON         0x0000000020000070       0x8c Core/Src/main.o
-                0x0000000020000070                hadc1
-                0x00000000200000b8                SwitchState
+ *fill*         0x0000000020000072        0x2 
+ COMMON         0x0000000020000074       0x88 Core/Src/main.o
+                0x0000000020000074                hadc1
                 0x00000000200000bc                huart2
  COMMON         0x00000000200000fc        0x4 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
                 0x00000000200000fc                uwTick
@@ -3354,18 +3356,18 @@ OUTPUT(week333.elf elf32-littlearm)
  .debug_macro   0x0000000000014c04      0x1f7 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o
  .debug_macro   0x0000000000014dfb      0x1d4 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.o
 
-.debug_line     0x0000000000000000     0x5cab
- .debug_line    0x0000000000000000      0x7ca Core/Src/main.o
- .debug_line    0x00000000000007ca      0x71e Core/Src/stm32f4xx_hal_msp.o
- .debug_line    0x0000000000000ee8      0x769 Core/Src/stm32f4xx_it.o
- .debug_line    0x0000000000001651      0x6dc Core/Src/system_stm32f4xx.o
- .debug_line    0x0000000000001d2d       0x85 Core/Startup/startup_stm32f411retx.o
- .debug_line    0x0000000000001db2      0x8c6 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
- .debug_line    0x0000000000002678      0xaee Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_adc.o
- .debug_line    0x0000000000003166      0x9ea Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o
- .debug_line    0x0000000000003b50      0x869 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.o
- .debug_line    0x00000000000043b9      0x91e Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o
- .debug_line    0x0000000000004cd7      0xfd4 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.o
+.debug_line     0x0000000000000000     0x5cb1
+ .debug_line    0x0000000000000000      0x7d0 Core/Src/main.o
+ .debug_line    0x00000000000007d0      0x71e Core/Src/stm32f4xx_hal_msp.o
+ .debug_line    0x0000000000000eee      0x769 Core/Src/stm32f4xx_it.o
+ .debug_line    0x0000000000001657      0x6dc Core/Src/system_stm32f4xx.o
+ .debug_line    0x0000000000001d33       0x85 Core/Startup/startup_stm32f411retx.o
+ .debug_line    0x0000000000001db8      0x8c6 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
+ .debug_line    0x000000000000267e      0xaee Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_adc.o
+ .debug_line    0x000000000000316c      0x9ea Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o
+ .debug_line    0x0000000000003b56      0x869 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.o
+ .debug_line    0x00000000000043bf      0x91e Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o
+ .debug_line    0x0000000000004cdd      0xfd4 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.o
 
 .debug_str      0x0000000000000000    0x85a00
  .debug_str     0x0000000000000000    0x83f0c Core/Src/main.o

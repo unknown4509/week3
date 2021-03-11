@@ -56,8 +56,9 @@ ADCStructure ADCChannel[3] = { 0 };
 
 float ADCSOutputConverted = 0;
 int ADCMode = 0;
+
 uint32_t ButtonTimeStamp = 0;
-GPIO_PinState SwitchState[2];
+GPIO_PinState SwitchState[2]={0};
 
 /* USER CODE END PV */
 
@@ -117,22 +118,23 @@ int main(void)
 
 		if (HAL_GetTick() - ButtonTimeStamp >= 100) //ms
 		{
-				ButtonTimeStamp = HAL_GetTick();
-
-				SwitchState[0] = HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_9);
+		ButtonTimeStamp = HAL_GetTick();
+		SwitchState[0] = HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_9);
 
 				if(SwitchState[1]== GPIO_PIN_SET && SwitchState[0]== GPIO_PIN_RESET)
 				{
 					if (ADCMode == 0) {ADCMode = 1;}
-					else {ADCMode = 0;}
+					else if (ADCMode == 1) {ADCMode = 0;}
 				}
-				SwitchState[1] = SwitchState[0];
+
+		SwitchState[1] = SwitchState[0];
 		}
+
 
 
 		if (ADCMode == 0)
 		{
-			ADCSOutputConverted = ((((3.3 * ADCChannel[0].data) / 4096) * 1000));
+			ADCSOutputConverted = ( ((3.3 / 4096)* ADCChannel[0].data) * 1000);
 		}
 		else if (ADCMode == 1)
 		{
@@ -306,8 +308,8 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(LD2_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : PA10 */
-  GPIO_InitStruct.Pin = GPIO_PIN_10;
+  /*Configure GPIO pins : PA9 PA10 */
+  GPIO_InitStruct.Pin = GPIO_PIN_9|GPIO_PIN_10;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
